@@ -33,9 +33,9 @@ function getHumanChoice() {
     const cleanChoice = choice.toLowerCase();
     
     // Check if the cleaned choice is one of the valid options
-    if (cleanChoice === "rock" || 
-        cleanChoice === "paper" || 
-        cleanChoice === "scissors") {
+    if (cleanChoice === choices[0].toLowerCase() || 
+        cleanChoice === choices[1].toLowerCase() || 
+        cleanChoice === choices[2].toLowerCase()) {
         // Return the valid choice
         return cleanChoice;
     } else {
@@ -46,11 +46,29 @@ function getHumanChoice() {
 
 // Rock beats scissors, scissors beat paper, and paper beats rock.
 function playRound(humanChoice, computerChoice){
-    if(humanChoice === choices[0].toLowerCase() && computerChoice === choices[2].toLowerCase()){
-        return `You Win`
-    }else{
-        return `You lose Rock beats Scissors`;
+    switch (true) {
+        case humanChoice === choices[0].toLowerCase() && computerChoice === choices[2].toLowerCase():
+            return "You Win";
+        case humanChoice === choices[2].toLowerCase() && computerChoice === choices[1].toLowerCase():
+            return "You Win";
+        case humanChoice === choices[1].toLowerCase() && computerChoice === choices[0].toLowerCase():
+            return "You Win";
+        case computerChoice === choices[0].toLowerCase() && humanChoice === choices[2].toLowerCase():
+            return "You Lose";
+        case computerChoice === choices[2].toLowerCase() && humanChoice === choices[1].toLowerCase():
+            return "You Lose";
+        case computerChoice === choices[1].toLowerCase() && humanChoice === choices[0].toLowerCase():
+            return "You lose";
+        case computerChoice === choices[0].toLowerCase() && humanChoice === choices[0].toLowerCase():
+            return "Lock";
+        case computerChoice === choices[1].toLowerCase() && humanChoice === choices[1].toLowerCase():
+            return "Lock";
+        case computerChoice === choices[2].toLowerCase() && humanChoice === choices[2].toLowerCase():
+            return "Lock";
+        default:
+            return "No Match";
     }
+    
 
 }
 
