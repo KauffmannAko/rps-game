@@ -45,31 +45,72 @@ function getHumanChoice() {
 }
 
 // Rock beats scissors, scissors beat paper, and paper beats rock.
-function playRound(humanChoice, computerChoice){
-    switch (true) {
-        case humanChoice === choices[0].toLowerCase() && computerChoice === choices[2].toLowerCase():
-            return "You Win";
-        case humanChoice === choices[2].toLowerCase() && computerChoice === choices[1].toLowerCase():
-            return "You Win";
-        case humanChoice === choices[1].toLowerCase() && computerChoice === choices[0].toLowerCase():
-            return "You Win";
-        case computerChoice === choices[0].toLowerCase() && humanChoice === choices[2].toLowerCase():
-            return "You Lose";
-        case computerChoice === choices[2].toLowerCase() && humanChoice === choices[1].toLowerCase():
-            return "You Lose";
-        case computerChoice === choices[1].toLowerCase() && humanChoice === choices[0].toLowerCase():
-            return "You lose";
-        case computerChoice === choices[0].toLowerCase() && humanChoice === choices[0].toLowerCase():
-            return "Lock";
-        case computerChoice === choices[1].toLowerCase() && humanChoice === choices[1].toLowerCase():
-            return "Lock";
-        case computerChoice === choices[2].toLowerCase() && humanChoice === choices[2].toLowerCase():
-            return "Lock";
-        default:
-            return "No Match";
-    }
-    
+function playRound(Rounds) {
+    // Loop through the number of rounds specified
+    for (let i = 1; i <= Rounds; i++) {
+        const humanChoice = getHumanChoice(); // Get the human player's choice
+        const computerChoice = getComputerChoice(); // Get the computer's choice
 
+        // Check if the human's choice is invalid
+        if (humanChoice === "Invalid input") {
+            alert("Invalid input, please try again."); // Alert the user
+            i--; // Decrement i to repeat the round
+            continue; // Skip the rest of the loop for this iteration
+        }
+
+        let result; // Declare a variable to hold the result of the round
+
+        // Determine the outcome of the round using a switch statement
+        switch (true) {
+            // Human wins scenarios
+            case humanChoice === choices[0].toLowerCase() && computerChoice === choices[2].toLowerCase():
+                humanScore++; // Increment human score
+                result = "You win! Rock beats Scissors"; // Set result message
+                break;
+            case humanChoice === choices[2].toLowerCase() && computerChoice === choices[1].toLowerCase():
+                humanScore++; // Increment human score
+                result = "You win! Scissors beats Paper"; // Set result message
+                break;
+            case humanChoice === choices[1].toLowerCase() && computerChoice === choices[0].toLowerCase():
+                humanScore++; // Increment human score
+                result = "You win! Paper beats Rock"; // Set result message
+                break;
+
+            // Computer wins scenarios
+            case computerChoice === choices[0].toLowerCase() && humanChoice === choices[2].toLowerCase():
+                computerScore++; // Increment computer score
+                result = "You Lose! Rock beats Scissors"; // Set result message
+                break;
+            case computerChoice === choices[2].toLowerCase() && humanChoice === choices[1].toLowerCase():
+                computerScore++; // Increment computer score
+                result = "You Lose! Scissors beats Paper"; // Set result message
+                break;
+            case computerChoice === choices[1].toLowerCase() && humanChoice === choices[0].toLowerCase():
+                computerScore++; // Increment computer score
+                result = "You Lose! Paper beats Rock"; // Set result message
+                break;
+
+            // Tie scenarios
+            case computerChoice === choices[0].toLowerCase() && humanChoice === choices[0].toLowerCase():
+                result = "It's a Tie!"; // Set result message
+                break;
+            case computerChoice === choices[1].toLowerCase() && humanChoice === choices[1].toLowerCase():
+                result = "It's a Tie!"; // Set result message
+                break;
+            case computerChoice === choices[2].toLowerCase() && humanChoice === choices[2].toLowerCase():
+                result = "It's a Tie!"; // Set result message
+                break;
+
+            default:
+                result = "No Match"; // Fallback case if no conditions match
+        }
+
+        alert(result); // Display the result of the round
+    }
 }
 
-alert(playRound(getHumanChoice(),getComputerChoice()));
+// Call the function to play 5 rounds
+playRound(5);
+
+// Display the final score after all rounds are complete
+alert(`Final Score - Human: ${humanScore}, Computer: ${computerScore}`);
